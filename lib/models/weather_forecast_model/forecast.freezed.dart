@@ -90,10 +90,9 @@ class __$$_ForecastCopyWithImpl<$Res> extends _$ForecastCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Forecast extends _Forecast {
+class _$_Forecast implements _Forecast {
   _$_Forecast({final List<Forecastday>? forecastday})
-      : _forecastday = forecastday,
-        super._();
+      : _forecastday = forecastday;
 
   factory _$_Forecast.fromJson(Map<String, dynamic> json) =>
       _$$_ForecastFromJson(json);
@@ -139,9 +138,8 @@ class _$_Forecast extends _Forecast {
   }
 }
 
-abstract class _Forecast extends Forecast {
+abstract class _Forecast implements Forecast {
   factory _Forecast({final List<Forecastday>? forecastday}) = _$_Forecast;
-  _Forecast._() : super._();
 
   factory _Forecast.fromJson(Map<String, dynamic> json) = _$_Forecast.fromJson;
 
