@@ -45,7 +45,7 @@ mixin _$Day {
   @JsonKey(name: 'daily_chance_of_snow')
   double? get dailyChanceOfSnow => throw _privateConstructorUsedError;
   Condition? get condition => throw _privateConstructorUsedError;
-  int? get uv => throw _privateConstructorUsedError;
+  double? get uv => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -70,7 +70,7 @@ abstract class $DayCopyWith<$Res> {
       @JsonKey(name: 'daily_will_it_snow') double? dailyWillItSnow,
       @JsonKey(name: 'daily_chance_of_snow') double? dailyChanceOfSnow,
       Condition? condition,
-      int? uv});
+      double? uv});
 
   $ConditionCopyWith<$Res>? get condition;
 }
@@ -156,7 +156,7 @@ class _$DayCopyWithImpl<$Res> implements $DayCopyWith<$Res> {
       uv: uv == freezed
           ? _value.uv
           : uv // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
     ));
   }
 
@@ -191,7 +191,7 @@ abstract class _$$_DayCopyWith<$Res> implements $DayCopyWith<$Res> {
       @JsonKey(name: 'daily_will_it_snow') double? dailyWillItSnow,
       @JsonKey(name: 'daily_chance_of_snow') double? dailyChanceOfSnow,
       Condition? condition,
-      int? uv});
+      double? uv});
 
   @override
   $ConditionCopyWith<$Res>? get condition;
@@ -279,7 +279,7 @@ class __$$_DayCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res>
       uv: uv == freezed
           ? _value.uv
           : uv // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
     ));
   }
 }
@@ -344,7 +344,7 @@ class _$_Day implements _Day {
   @override
   final Condition? condition;
   @override
-  final int? uv;
+  final double? uv;
 
   @override
   String toString() {
@@ -425,7 +425,7 @@ abstract class _Day implements Day {
       @JsonKey(name: 'daily_will_it_snow') final double? dailyWillItSnow,
       @JsonKey(name: 'daily_chance_of_snow') final double? dailyChanceOfSnow,
       final Condition? condition,
-      final int? uv}) = _$_Day;
+      final double? uv}) = _$_Day;
 
   factory _Day.fromJson(Map<String, dynamic> json) = _$_Day.fromJson;
 
@@ -468,7 +468,7 @@ abstract class _Day implements Day {
   @override
   Condition? get condition;
   @override
-  int? get uv;
+  double? get uv;
   @override
   @JsonKey(ignore: true)
   _$$_DayCopyWith<_$_Day> get copyWith => throw _privateConstructorUsedError;

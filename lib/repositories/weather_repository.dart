@@ -10,20 +10,20 @@ import 'package:flutter_weather/network/dio_provider.dart';
 class WeatherRepository {
   WeatherRepository();
 
-  Future<WeatherForecastModel?> getWeather() async {
+  Future<WeatherForecastModel?> getWeather(String location) async {
     try {
       final result = await DioClient.instance.get(
         url: '/forecast.json',
         // TODO: Make the country dynamic
         queryParameters: {
           "key": AppConstants.WEATHER_API_KEY,
-          "q": "London",
-          "days": 5,
+          "q": location,
+          "days": 6,
         },
       );
 
       if (!result.isSuccessful) {
-        throw ErrorDescription('TODO: Error getting help');
+        throw ErrorDescription('TODO: Error getting weather');
       }
 
       final jsonList = WeatherForecastModel.fromJson(result.data);

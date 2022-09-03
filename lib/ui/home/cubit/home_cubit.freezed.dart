@@ -19,21 +19,39 @@ mixin _$HomeState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(
+            String currentCountry,
+            String currentName,
+            double currentTemp,
+            List<Forecastday> fiveDayForeCast,
+            Condition currentCondition)
+        loaded,
     required TResult Function() loadFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(
+            String currentCountry,
+            String currentName,
+            double currentTemp,
+            List<Forecastday> fiveDayForeCast,
+            Condition currentCondition)?
+        loaded,
     TResult Function()? loadFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(
+            String currentCountry,
+            String currentName,
+            double currentTemp,
+            List<Forecastday> fiveDayForeCast,
+            Condition currentCondition)?
+        loaded,
     TResult Function()? loadFailed,
     required TResult orElse(),
   }) =>
@@ -119,7 +137,13 @@ class _$HomeLoadingState implements HomeLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(
+            String currentCountry,
+            String currentName,
+            double currentTemp,
+            List<Forecastday> fiveDayForeCast,
+            Condition currentCondition)
+        loaded,
     required TResult Function() loadFailed,
   }) {
     return loading();
@@ -129,7 +153,13 @@ class _$HomeLoadingState implements HomeLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(
+            String currentCountry,
+            String currentName,
+            double currentTemp,
+            List<Forecastday> fiveDayForeCast,
+            Condition currentCondition)?
+        loaded,
     TResult Function()? loadFailed,
   }) {
     return loading?.call();
@@ -139,7 +169,13 @@ class _$HomeLoadingState implements HomeLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(
+            String currentCountry,
+            String currentName,
+            double currentTemp,
+            List<Forecastday> fiveDayForeCast,
+            Condition currentCondition)?
+        loaded,
     TResult Function()? loadFailed,
     required TResult orElse(),
   }) {
@@ -193,6 +229,14 @@ abstract class _$$HomeLoadedStateCopyWith<$Res> {
   factory _$$HomeLoadedStateCopyWith(
           _$HomeLoadedState value, $Res Function(_$HomeLoadedState) then) =
       __$$HomeLoadedStateCopyWithImpl<$Res>;
+  $Res call(
+      {String currentCountry,
+      String currentName,
+      double currentTemp,
+      List<Forecastday> fiveDayForeCast,
+      Condition currentCondition});
+
+  $ConditionCopyWith<$Res> get currentCondition;
 }
 
 /// @nodoc
@@ -205,57 +249,161 @@ class __$$HomeLoadedStateCopyWithImpl<$Res>
 
   @override
   _$HomeLoadedState get _value => super._value as _$HomeLoadedState;
+
+  @override
+  $Res call({
+    Object? currentCountry = freezed,
+    Object? currentName = freezed,
+    Object? currentTemp = freezed,
+    Object? fiveDayForeCast = freezed,
+    Object? currentCondition = freezed,
+  }) {
+    return _then(_$HomeLoadedState(
+      currentCountry: currentCountry == freezed
+          ? _value.currentCountry
+          : currentCountry // ignore: cast_nullable_to_non_nullable
+              as String,
+      currentName: currentName == freezed
+          ? _value.currentName
+          : currentName // ignore: cast_nullable_to_non_nullable
+              as String,
+      currentTemp: currentTemp == freezed
+          ? _value.currentTemp
+          : currentTemp // ignore: cast_nullable_to_non_nullable
+              as double,
+      fiveDayForeCast: fiveDayForeCast == freezed
+          ? _value._fiveDayForeCast
+          : fiveDayForeCast // ignore: cast_nullable_to_non_nullable
+              as List<Forecastday>,
+      currentCondition: currentCondition == freezed
+          ? _value.currentCondition
+          : currentCondition // ignore: cast_nullable_to_non_nullable
+              as Condition,
+    ));
+  }
+
+  @override
+  $ConditionCopyWith<$Res> get currentCondition {
+    return $ConditionCopyWith<$Res>(_value.currentCondition, (value) {
+      return _then(_value.copyWith(currentCondition: value));
+    });
+  }
 }
 
 /// @nodoc
 
 class _$HomeLoadedState implements HomeLoadedState {
-  const _$HomeLoadedState();
+  const _$HomeLoadedState(
+      {required this.currentCountry,
+      required this.currentName,
+      required this.currentTemp,
+      required final List<Forecastday> fiveDayForeCast,
+      required this.currentCondition})
+      : _fiveDayForeCast = fiveDayForeCast;
+
+  @override
+  final String currentCountry;
+  @override
+  final String currentName;
+  @override
+  final double currentTemp;
+  final List<Forecastday> _fiveDayForeCast;
+  @override
+  List<Forecastday> get fiveDayForeCast {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_fiveDayForeCast);
+  }
+
+  @override
+  final Condition currentCondition;
 
   @override
   String toString() {
-    return 'HomeState.loaded()';
+    return 'HomeState.loaded(currentCountry: $currentCountry, currentName: $currentName, currentTemp: $currentTemp, fiveDayForeCast: $fiveDayForeCast, currentCondition: $currentCondition)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$HomeLoadedState);
+        (other.runtimeType == runtimeType &&
+            other is _$HomeLoadedState &&
+            const DeepCollectionEquality()
+                .equals(other.currentCountry, currentCountry) &&
+            const DeepCollectionEquality()
+                .equals(other.currentName, currentName) &&
+            const DeepCollectionEquality()
+                .equals(other.currentTemp, currentTemp) &&
+            const DeepCollectionEquality()
+                .equals(other._fiveDayForeCast, _fiveDayForeCast) &&
+            const DeepCollectionEquality()
+                .equals(other.currentCondition, currentCondition));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(currentCountry),
+      const DeepCollectionEquality().hash(currentName),
+      const DeepCollectionEquality().hash(currentTemp),
+      const DeepCollectionEquality().hash(_fiveDayForeCast),
+      const DeepCollectionEquality().hash(currentCondition));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$HomeLoadedStateCopyWith<_$HomeLoadedState> get copyWith =>
+      __$$HomeLoadedStateCopyWithImpl<_$HomeLoadedState>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(
+            String currentCountry,
+            String currentName,
+            double currentTemp,
+            List<Forecastday> fiveDayForeCast,
+            Condition currentCondition)
+        loaded,
     required TResult Function() loadFailed,
   }) {
-    return loaded();
+    return loaded(currentCountry, currentName, currentTemp, fiveDayForeCast,
+        currentCondition);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(
+            String currentCountry,
+            String currentName,
+            double currentTemp,
+            List<Forecastday> fiveDayForeCast,
+            Condition currentCondition)?
+        loaded,
     TResult Function()? loadFailed,
   }) {
-    return loaded?.call();
+    return loaded?.call(currentCountry, currentName, currentTemp,
+        fiveDayForeCast, currentCondition);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(
+            String currentCountry,
+            String currentName,
+            double currentTemp,
+            List<Forecastday> fiveDayForeCast,
+            Condition currentCondition)?
+        loaded,
     TResult Function()? loadFailed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded();
+      return loaded(currentCountry, currentName, currentTemp, fiveDayForeCast,
+          currentCondition);
     }
     return orElse();
   }
@@ -296,7 +444,21 @@ class _$HomeLoadedState implements HomeLoadedState {
 }
 
 abstract class HomeLoadedState implements HomeState {
-  const factory HomeLoadedState() = _$HomeLoadedState;
+  const factory HomeLoadedState(
+      {required final String currentCountry,
+      required final String currentName,
+      required final double currentTemp,
+      required final List<Forecastday> fiveDayForeCast,
+      required final Condition currentCondition}) = _$HomeLoadedState;
+
+  String get currentCountry;
+  String get currentName;
+  double get currentTemp;
+  List<Forecastday> get fiveDayForeCast;
+  Condition get currentCondition;
+  @JsonKey(ignore: true)
+  _$$HomeLoadedStateCopyWith<_$HomeLoadedState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -341,7 +503,13 @@ class _$HomeLoadFailedState implements HomeLoadFailedState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(
+            String currentCountry,
+            String currentName,
+            double currentTemp,
+            List<Forecastday> fiveDayForeCast,
+            Condition currentCondition)
+        loaded,
     required TResult Function() loadFailed,
   }) {
     return loadFailed();
@@ -351,7 +519,13 @@ class _$HomeLoadFailedState implements HomeLoadFailedState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(
+            String currentCountry,
+            String currentName,
+            double currentTemp,
+            List<Forecastday> fiveDayForeCast,
+            Condition currentCondition)?
+        loaded,
     TResult Function()? loadFailed,
   }) {
     return loadFailed?.call();
@@ -361,7 +535,13 @@ class _$HomeLoadFailedState implements HomeLoadFailedState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(
+            String currentCountry,
+            String currentName,
+            double currentTemp,
+            List<Forecastday> fiveDayForeCast,
+            Condition currentCondition)?
+        loaded,
     TResult Function()? loadFailed,
     required TResult orElse(),
   }) {

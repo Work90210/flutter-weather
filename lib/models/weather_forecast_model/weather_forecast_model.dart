@@ -23,9 +23,11 @@ class WeatherForecastModel with _$WeatherForecastModel {
     Forecast? forecast,
   }) = _WeatherForecastModel;
 
+  String get currentCountry => location!.country!;
+  String get currentName => location!.name!;
   double get tempInCelcius => current!.tempC!;
   double get tempInFarenheit => current!.tempF!;
-  Condition get currenCondition => current!.condition!;
+  Condition get currentCondition => current!.condition!;
   List<Forecastday> get listOfForecastDays => forecast!.forecastday!;
 
   factory WeatherForecastModel.fromJson(Map<String, dynamic> json) =>

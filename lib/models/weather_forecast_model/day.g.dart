@@ -22,7 +22,7 @@ _$_Day _$$_DayFromJson(Map<String, dynamic> json) => _$_Day(
       condition: json['condition'] == null
           ? null
           : Condition.fromJson(json['condition'] as Map<String, dynamic>),
-      uv: json['uv'] as int?,
+      uv: (json['uv'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$_DayToJson(_$_Day instance) => <String, dynamic>{

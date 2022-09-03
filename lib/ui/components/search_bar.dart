@@ -5,38 +5,32 @@
 import 'package:flutter/material.dart';
 
 class MainSearchBar extends StatelessWidget {
-  final Function(String value) onChanged;
-  final VoidCallback onPress;
+  final Function(String value) onPress;
   const MainSearchBar({
     super.key,
-    required this.onChanged,
     required this.onPress,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // Dynamically change the width of the sizedBox based on the width of the screen
-      width: MediaQuery.of(context).size.width * 0.25,
+      width: 250,
       child: TextFormField(
         style: Theme.of(context).textTheme.labelLarge,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           // Icon on the right
-          suffixIcon: RawMaterialButton(
-            onPressed: (() {}),
-            child: const Icon(Icons.search),
-          ),
+          suffixIcon: Icon(Icons.search),
           // Whether the textformfield should have a background color
           filled: true,
           fillColor: Colors.white,
-          hintText: 'London',
+          hintText: 'Search here',
           // Hides the borders of the inputtextfield
           border: InputBorder.none,
           // Used to center align the text in the search bar
-          contentPadding: const EdgeInsets.all(11.0),
+          contentPadding: EdgeInsets.all(11.0),
         ),
         // What to do with the textform values
-        onChanged: onChanged.call,
+        onFieldSubmitted: onPress,
       ),
     );
   }

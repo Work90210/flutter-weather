@@ -25,7 +25,7 @@ class Day with _$Day {
     @JsonKey(name: 'daily_will_it_snow') double? dailyWillItSnow,
     @JsonKey(name: 'daily_chance_of_snow') double? dailyChanceOfSnow,
     Condition? condition,
-    int? uv,
+    double? uv,
   }) = _Day;
 
   factory Day.fromJson(Map<String, dynamic> json) => _$DayFromJson(json);
