@@ -10,7 +10,7 @@ import 'package:flutter_weather/network/dio_provider.dart';
 class WeatherRepository {
   WeatherRepository();
 
-  Future<WeatherForecastModel?> getHelp() async {
+  Future<WeatherForecastModel?> getWeather() async {
     try {
       final result = await DioClient.instance.get(
         url: '/forecast.json',

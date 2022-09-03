@@ -14,7 +14,7 @@ class Current with _$Current {
   factory Current({
     @JsonKey(name: 'last_updated_epoch') int? lastUpdatedEpoch,
     @JsonKey(name: 'last_updated') String? lastUpdated,
-    @JsonKey(name: 'temp_c') int? tempC,
+    @JsonKey(name: 'temp_c') double? tempC,
     @JsonKey(name: 'temp_f') double? tempF,
     @JsonKey(name: 'is_day') int? isDay,
     Condition? condition,

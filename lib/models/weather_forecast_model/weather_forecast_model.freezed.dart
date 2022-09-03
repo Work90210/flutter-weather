@@ -160,8 +160,9 @@ class __$$_WeatherForecastModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_WeatherForecastModel implements _WeatherForecastModel {
-  _$_WeatherForecastModel({this.location, this.current, this.forecast});
+class _$_WeatherForecastModel extends _WeatherForecastModel {
+  _$_WeatherForecastModel({this.location, this.current, this.forecast})
+      : super._();
 
   factory _$_WeatherForecastModel.fromJson(Map<String, dynamic> json) =>
       _$$_WeatherForecastModelFromJson(json);
@@ -210,11 +211,12 @@ class _$_WeatherForecastModel implements _WeatherForecastModel {
   }
 }
 
-abstract class _WeatherForecastModel implements WeatherForecastModel {
+abstract class _WeatherForecastModel extends WeatherForecastModel {
   factory _WeatherForecastModel(
       {final Location? location,
       final Current? current,
       final Forecast? forecast}) = _$_WeatherForecastModel;
+  _WeatherForecastModel._() : super._();
 
   factory _WeatherForecastModel.fromJson(Map<String, dynamic> json) =
       _$_WeatherForecastModel.fromJson;

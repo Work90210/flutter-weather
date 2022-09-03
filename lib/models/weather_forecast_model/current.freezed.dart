@@ -25,7 +25,7 @@ mixin _$Current {
   @JsonKey(name: 'last_updated')
   String? get lastUpdated => throw _privateConstructorUsedError;
   @JsonKey(name: 'temp_c')
-  int? get tempC => throw _privateConstructorUsedError;
+  double? get tempC => throw _privateConstructorUsedError;
   @JsonKey(name: 'temp_f')
   double? get tempF => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_day')
@@ -75,7 +75,7 @@ abstract class $CurrentCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'last_updated_epoch') int? lastUpdatedEpoch,
       @JsonKey(name: 'last_updated') String? lastUpdated,
-      @JsonKey(name: 'temp_c') int? tempC,
+      @JsonKey(name: 'temp_c') double? tempC,
       @JsonKey(name: 'temp_f') double? tempF,
       @JsonKey(name: 'is_day') int? isDay,
       Condition? condition,
@@ -146,7 +146,7 @@ class _$CurrentCopyWithImpl<$Res> implements $CurrentCopyWith<$Res> {
       tempC: tempC == freezed
           ? _value.tempC
           : tempC // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       tempF: tempF == freezed
           ? _value.tempF
           : tempF // ignore: cast_nullable_to_non_nullable
@@ -251,7 +251,7 @@ abstract class _$$_CurrentCopyWith<$Res> implements $CurrentCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'last_updated_epoch') int? lastUpdatedEpoch,
       @JsonKey(name: 'last_updated') String? lastUpdated,
-      @JsonKey(name: 'temp_c') int? tempC,
+      @JsonKey(name: 'temp_c') double? tempC,
       @JsonKey(name: 'temp_f') double? tempF,
       @JsonKey(name: 'is_day') int? isDay,
       Condition? condition,
@@ -324,7 +324,7 @@ class __$$_CurrentCopyWithImpl<$Res> extends _$CurrentCopyWithImpl<$Res>
       tempC: tempC == freezed
           ? _value.tempC
           : tempC // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       tempF: tempF == freezed
           ? _value.tempF
           : tempF // ignore: cast_nullable_to_non_nullable
@@ -448,7 +448,7 @@ class _$_Current implements _Current {
   final String? lastUpdated;
   @override
   @JsonKey(name: 'temp_c')
-  final int? tempC;
+  final double? tempC;
   @override
   @JsonKey(name: 'temp_f')
   final double? tempF;
@@ -594,7 +594,7 @@ abstract class _Current implements Current {
   factory _Current(
       {@JsonKey(name: 'last_updated_epoch') final int? lastUpdatedEpoch,
       @JsonKey(name: 'last_updated') final String? lastUpdated,
-      @JsonKey(name: 'temp_c') final int? tempC,
+      @JsonKey(name: 'temp_c') final double? tempC,
       @JsonKey(name: 'temp_f') final double? tempF,
       @JsonKey(name: 'is_day') final int? isDay,
       final Condition? condition,
@@ -626,7 +626,7 @@ abstract class _Current implements Current {
   String? get lastUpdated;
   @override
   @JsonKey(name: 'temp_c')
-  int? get tempC;
+  double? get tempC;
   @override
   @JsonKey(name: 'temp_f')
   double? get tempF;

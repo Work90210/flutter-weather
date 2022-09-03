@@ -15,12 +15,13 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeCubit({
     required this.weatherRepository,
-  }) : super(const HomeState.init()) {
+  }) : super(const HomeState.loading()) {
     _init();
   }
 
   void _init() async {
-    WeatherForecastModel? weather = await weatherRepository.getHelp();
-// TODO: Build the state management
+    WeatherForecastModel? weather = await weatherRepository.getWeather();
+
+    emit(const HomeState.loaded());
   }
 }
