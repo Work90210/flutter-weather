@@ -24,18 +24,15 @@ dependencies:
   json_serializable: ^6.3.1
 
 # Styling
-  responsive_framework: ^0.2.0
-  cupertino_icons: ^1.0.2
   lottie: ^1.4.2
   flutter_svg: ^1.1.4
-  flutter_staggered_grid_view: ^0.6.2
+  responsive_grid: ^2.1.0
 
 # State Management
   flutter_bloc: ^8.1.1
 
 # Misc
   intl: ^0.17.0
-  fluttertoast: ^8.0.9
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +42,9 @@ dev_dependencies:
   freezed: ^2.1.0+1
   flutter_lints: ^2.0.0
   build_runner: ^2.2.0
+
+# Testing
+  mockito: ^5.3.0
 
 
 flutter:

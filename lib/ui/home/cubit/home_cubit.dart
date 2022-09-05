@@ -18,34 +18,33 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit({
     required this.weatherRepository,
   }) : super(const HomeState.loading()) {
-    _init();
+    init();
   }
 
-  void _init({String? location}) async {
+  void init({String? location}) async {
     // Perform the API request
-    WeatherForecastModel? weather = await weatherRepository.getWeather(location ?? "London");
+    final response = await weatherRepository.getWeather(location ?? "London");
 
-    // If the request comes back null, emit load failed
-    if (weather == null) {
-      emit(const HomeState.loadFailed());
-    } else {
-      // Create new list for forevase
+    // Check if the response is the weather forecast model and proceed
+    if (response is WeatherForecastModel) {
+      // Create new list for forecast
       List<Forecastday> forecastList = [];
       // Add list of forecast from API
-      forecastList.addAll(weather.listOfForecastDays);
-      // Remove the first item from the list as its the current  day
+      forecastList.addAll(response.listOfForecastDays);
+      // Remove the first item from the list as its the current day
       List<Forecastday> firstIndexRemovedForecastList = forecastList..removeAt(0);
 
-      // If the request is not null, then emit loaded
       emit(HomeState.loaded(
-        currentCountry: weather.currentCountry, // Country name
-        currentName: weather.currentName, // City name
-        currentTemp: weather.tempInCelcius, // Tempreture in celcius
+        currentCountry: response.currentCountry, // Country name
+        currentName: response.currentName, // City name
+        currentTemp: response.tempInCelcius, // Tempreture in celcius
         fiveDayForeCast:
             firstIndexRemovedForecastList, // A list of weather for the next 5 days in the current location
-        currentCondition: weather
+        currentCondition: response
             .currentCondition, // What the weather is like currently. eg: Rainy, cloudy, winndy, etc.
       ));
+    } else {
+      emit(HomeState.loadFailed(errorMessage: response.toString()));
     }
   }
 
@@ -55,6 +54,6 @@ class HomeCubit extends Cubit<HomeState> {
     emit(const HomeState.loading());
 
     // Run the API request again with the new location
-    _init(location: newLocation);
+    init(location: newLocation);
   }
 }

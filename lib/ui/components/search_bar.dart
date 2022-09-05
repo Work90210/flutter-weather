@@ -16,6 +16,7 @@ class MainSearchBar extends StatelessWidget {
     return SizedBox(
       width: 250,
       child: TextFormField(
+        key: const Key('Search Field'),
         style: Theme.of(context).textTheme.labelLarge,
         decoration: const InputDecoration(
           // Icon on the right
@@ -27,7 +28,7 @@ class MainSearchBar extends StatelessWidget {
           // Hides the borders of the inputtextfield
           border: InputBorder.none,
           // Used to center align the text in the search bar
-          contentPadding: EdgeInsets.all(11.0),
+          contentPadding: EdgeInsets.all(20.0),
         ),
         // What to do with the textform values
         onFieldSubmitted: onPress,

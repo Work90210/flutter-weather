@@ -26,7 +26,7 @@ mixin _$HomeState {
             List<Forecastday> fiveDayForeCast,
             Condition currentCondition)
         loaded,
-    required TResult Function() loadFailed,
+    required TResult Function(String errorMessage) loadFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -39,7 +39,7 @@ mixin _$HomeState {
             List<Forecastday> fiveDayForeCast,
             Condition currentCondition)?
         loaded,
-    TResult Function()? loadFailed,
+    TResult Function(String errorMessage)? loadFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -52,7 +52,7 @@ mixin _$HomeState {
             List<Forecastday> fiveDayForeCast,
             Condition currentCondition)?
         loaded,
-    TResult Function()? loadFailed,
+    TResult Function(String errorMessage)? loadFailed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -144,7 +144,7 @@ class _$HomeLoadingState implements HomeLoadingState {
             List<Forecastday> fiveDayForeCast,
             Condition currentCondition)
         loaded,
-    required TResult Function() loadFailed,
+    required TResult Function(String errorMessage) loadFailed,
   }) {
     return loading();
   }
@@ -160,7 +160,7 @@ class _$HomeLoadingState implements HomeLoadingState {
             List<Forecastday> fiveDayForeCast,
             Condition currentCondition)?
         loaded,
-    TResult Function()? loadFailed,
+    TResult Function(String errorMessage)? loadFailed,
   }) {
     return loading?.call();
   }
@@ -176,7 +176,7 @@ class _$HomeLoadingState implements HomeLoadingState {
             List<Forecastday> fiveDayForeCast,
             Condition currentCondition)?
         loaded,
-    TResult Function()? loadFailed,
+    TResult Function(String errorMessage)? loadFailed,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -364,7 +364,7 @@ class _$HomeLoadedState implements HomeLoadedState {
             List<Forecastday> fiveDayForeCast,
             Condition currentCondition)
         loaded,
-    required TResult Function() loadFailed,
+    required TResult Function(String errorMessage) loadFailed,
   }) {
     return loaded(currentCountry, currentName, currentTemp, fiveDayForeCast,
         currentCondition);
@@ -381,7 +381,7 @@ class _$HomeLoadedState implements HomeLoadedState {
             List<Forecastday> fiveDayForeCast,
             Condition currentCondition)?
         loaded,
-    TResult Function()? loadFailed,
+    TResult Function(String errorMessage)? loadFailed,
   }) {
     return loaded?.call(currentCountry, currentName, currentTemp,
         fiveDayForeCast, currentCondition);
@@ -398,7 +398,7 @@ class _$HomeLoadedState implements HomeLoadedState {
             List<Forecastday> fiveDayForeCast,
             Condition currentCondition)?
         loaded,
-    TResult Function()? loadFailed,
+    TResult Function(String errorMessage)? loadFailed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -466,6 +466,7 @@ abstract class _$$HomeLoadFailedStateCopyWith<$Res> {
   factory _$$HomeLoadFailedStateCopyWith(_$HomeLoadFailedState value,
           $Res Function(_$HomeLoadFailedState) then) =
       __$$HomeLoadFailedStateCopyWithImpl<$Res>;
+  $Res call({String errorMessage});
 }
 
 /// @nodoc
@@ -478,26 +479,53 @@ class __$$HomeLoadFailedStateCopyWithImpl<$Res>
 
   @override
   _$HomeLoadFailedState get _value => super._value as _$HomeLoadFailedState;
+
+  @override
+  $Res call({
+    Object? errorMessage = freezed,
+  }) {
+    return _then(_$HomeLoadFailedState(
+      errorMessage: errorMessage == freezed
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$HomeLoadFailedState implements HomeLoadFailedState {
-  const _$HomeLoadFailedState();
+  const _$HomeLoadFailedState(
+      {this.errorMessage = 'Something went wrong. Please try again'});
+
+  @override
+  @JsonKey()
+  final String errorMessage;
 
   @override
   String toString() {
-    return 'HomeState.loadFailed()';
+    return 'HomeState.loadFailed(errorMessage: $errorMessage)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$HomeLoadFailedState);
+        (other.runtimeType == runtimeType &&
+            other is _$HomeLoadFailedState &&
+            const DeepCollectionEquality()
+                .equals(other.errorMessage, errorMessage));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(errorMessage));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$HomeLoadFailedStateCopyWith<_$HomeLoadFailedState> get copyWith =>
+      __$$HomeLoadFailedStateCopyWithImpl<_$HomeLoadFailedState>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -510,9 +538,9 @@ class _$HomeLoadFailedState implements HomeLoadFailedState {
             List<Forecastday> fiveDayForeCast,
             Condition currentCondition)
         loaded,
-    required TResult Function() loadFailed,
+    required TResult Function(String errorMessage) loadFailed,
   }) {
-    return loadFailed();
+    return loadFailed(errorMessage);
   }
 
   @override
@@ -526,9 +554,9 @@ class _$HomeLoadFailedState implements HomeLoadFailedState {
             List<Forecastday> fiveDayForeCast,
             Condition currentCondition)?
         loaded,
-    TResult Function()? loadFailed,
+    TResult Function(String errorMessage)? loadFailed,
   }) {
-    return loadFailed?.call();
+    return loadFailed?.call(errorMessage);
   }
 
   @override
@@ -542,11 +570,11 @@ class _$HomeLoadFailedState implements HomeLoadFailedState {
             List<Forecastday> fiveDayForeCast,
             Condition currentCondition)?
         loaded,
-    TResult Function()? loadFailed,
+    TResult Function(String errorMessage)? loadFailed,
     required TResult orElse(),
   }) {
     if (loadFailed != null) {
-      return loadFailed();
+      return loadFailed(errorMessage);
     }
     return orElse();
   }
@@ -587,5 +615,11 @@ class _$HomeLoadFailedState implements HomeLoadFailedState {
 }
 
 abstract class HomeLoadFailedState implements HomeState {
-  const factory HomeLoadFailedState() = _$HomeLoadFailedState;
+  const factory HomeLoadFailedState({final String errorMessage}) =
+      _$HomeLoadFailedState;
+
+  String get errorMessage;
+  @JsonKey(ignore: true)
+  _$$HomeLoadFailedStateCopyWith<_$HomeLoadFailedState> get copyWith =>
+      throw _privateConstructorUsedError;
 }

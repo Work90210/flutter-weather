@@ -16,5 +16,7 @@ class HomeState with _$HomeState {
     required Condition currentCondition,
   }) = HomeLoadedState;
 
-  const factory HomeState.loadFailed() = HomeLoadFailedState;
+  const factory HomeState.loadFailed({
+    @Default('Something went wrong. Please try again') String errorMessage,
+  }) = HomeLoadFailedState;
 }

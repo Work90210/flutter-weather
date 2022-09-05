@@ -4,11 +4,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_weather/ui/home/cubit/home_cubit.dart';
 import 'package:flutter_weather/utils.dart';
 import 'package:lottie/lottie.dart';
+import 'package:responsive_grid/responsive_grid.dart';
 
+import '../../models/weather_forecast_model/forecastday.dart';
 import '../components/search_bar.dart';
 
 class HomePage extends StatelessWidget {
@@ -25,26 +26,44 @@ class HomePage extends StatelessWidget {
   }
 
   /// Build the loaded UI
-  Widget _buildLoaded(BuildContext context, HomeLoadedState state) {
+  Widget _buildLoaded(
+    BuildContext context, {
+    required String currentConditionIcon,
+    required String currentTemp,
+    required String currentCondition,
+    required String currentCity,
+    required String currentCountry,
+    required List<Forecastday> fiveDayForeCast,
+  }) {
     return SingleChildScrollView(
       child: Padding(
         // Padding
-        padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.15),
+        padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * 0.15,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
             // Build weather card
-            _buildWeatherCard(context, state),
-            const SizedBox(height: 10),
-            // Title
-            Text(
-              '5 Day forecast',
-              style: Theme.of(context).textTheme.headline6,
+            _buildWeatherCard(
+              context,
+              currentCity: currentCity,
+              currentCondition: currentCondition,
+              currentConditionIcon: currentConditionIcon,
+              currentCountry: currentCountry,
+              currentTemp: currentTemp,
             ),
-            const SizedBox(height: 10),
+            // Title
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                '5 Day forecast',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            ),
             // Build weather forecast for the next 5 days
-            _buildForeCastList(context, state),
+            _buildForecastList(context, fiveDayForeCast),
           ],
         ),
       ),
@@ -52,32 +71,68 @@ class HomePage extends StatelessWidget {
   }
 
   /// A Card Widget with all the information about the current weather
-  Widget _buildWeatherCard(BuildContext context, HomeLoadedState state) {
+  Widget _buildWeatherCard(
+    BuildContext context, {
+    required String currentConditionIcon,
+    required String currentTemp,
+    required String currentCondition,
+    required String currentCity,
+    required String currentCountry,
+  }) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: _buildWeatherCardBody(context, state),
+        child: _buildWeatherCardBody(
+          context,
+          currentCity: currentCity,
+          currentCondition: currentCondition,
+          currentConditionIcon: currentConditionIcon,
+          currentCountry: currentCountry,
+          currentTemp: currentTemp,
+        ),
       ),
     );
   }
 
   /// Card Body
-  Widget _buildWeatherCardBody(BuildContext context, HomeLoadedState state) {
-    return Stack(
+  Widget _buildWeatherCardBody(
+    BuildContext context, {
+    required String currentConditionIcon,
+    required String currentTemp,
+    required String currentCondition,
+    required String currentCity,
+    required String currentCountry,
+  }) {
+    return Column(
       children: [
+        // Display search bar if page has loaded successfully
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: MainSearchBar(
+            // If the value isn't empty, we allow the search
+            onPress: (value) {
+              if (value != '') {
+                BlocProvider.of<HomeCubit>(context).searchNewLocationOrReload(newLocation: value);
+              }
+            },
+          ),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             // Image of current weather with temp underneath
             Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Utils.getWeatherIcon(
-                  state.currentCondition.icon.toString(),
-                  MediaQuery.of(context).size.width * 0.15,
+                  currentConditionIcon.toString(),
+                  MediaQuery.of(context).size.width * 0.12,
                 ),
                 Text(
-                  "${state.currentTemp.toString()}\u00B0C",
-                  style: Theme.of(context).textTheme.displayMedium,
+                  "${currentTemp.toString()}\u00B0C",
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                        fontSize: MediaQuery.of(context).size.width * 0.03,
+                      ),
                 ),
               ],
             ),
@@ -85,99 +140,100 @@ class HomePage extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  state.currentCondition.text.toString(),
-                  style: Theme.of(context).textTheme.displaySmall,
+                  currentCondition.toString(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall!
+                      .copyWith(fontSize: MediaQuery.of(context).size.width * 0.04),
                 ),
-                const SizedBox(height: 10),
-                Text(
-                  state.currentName,
-                  style: Theme.of(context).textTheme.titleLarge,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Text(
+                    currentCity,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge!
+                        .copyWith(fontSize: MediaQuery.of(context).size.width * 0.015),
+                  ),
                 ),
-                const SizedBox(height: 10),
                 Text(
-                  state.currentCountry,
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  currentCountry,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall!
+                      .copyWith(fontSize: MediaQuery.of(context).size.width * 0.02),
                 ),
               ],
             ),
           ],
-        ),
-
-        // Display search bar if page has loaded successfully
-        Positioned(
-          top: 0,
-          right: 0,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: MainSearchBar(
-              // If the value isn't empty, we allow the search
-              onPress: (value) {
-                if (value != '') {
-                  BlocProvider.of<HomeCubit>(context).searchNewLocationOrReload(newLocation: value);
-                }
-              },
-            ),
-          ),
         ),
       ],
     );
   }
 
   /// Build a list to show the next 5 days forecast
-  Widget _buildForeCastList(BuildContext context, HomeLoadedState state) {
-    return StaggeredGrid.count(
-      crossAxisCount: 5,
-      children: List.generate(
-        state.fiveDayForeCast.length,
-        (index) => Card(
-            child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              // Display the date of the forecast
-              Text(Utils.getDateTime(state.fiveDayForeCast[index].dateEpoch!)),
-              // Bottom part of body
-              Row(
-                children: [
-                  // Get icon to display
-                  Utils.getWeatherIcon(
-                    state.fiveDayForeCast[index].day!.condition!.icon.toString(),
-                    MediaQuery.of(context).size.width * 0.05,
-                  ),
-                  // Display all tempretures for the day
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "High: ${state.fiveDayForeCast[index].day!.maxtempC!}\u00B0C",
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                      Text(
-                        "Low: ${state.fiveDayForeCast[index].day!.mintempC!}\u00B0C",
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ],
-          ),
-        )),
+  Widget _buildForecastList(
+    BuildContext context,
+    List<Forecastday> fiveDayForeCast,
+  ) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.4,
+      child: ResponsiveGridList(
+        desiredItemWidth: 250,
+        children: List.generate(
+          fiveDayForeCast.length,
+          (index) => Card(
+              child: Padding(
+            padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+            child: Column(
+              children: [
+                // Display the date of the forecast
+                Text(Utils.getDateTime(fiveDayForeCast[index].dateEpoch!)),
+                // Bottom part of body
+                Row(
+                  children: [
+                    // Get icon to display
+                    Utils.getWeatherIcon(
+                      fiveDayForeCast[index].day!.condition!.icon.toString(),
+                      MediaQuery.of(context).size.width * 0.05,
+                    ),
+                    const SizedBox(width: 15),
+                    // Display all tempretures for the day
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "High: ${fiveDayForeCast[index].day!.maxtempC!}\u00B0C",
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        Text(
+                          "Low: ${fiveDayForeCast[index].day!.mintempC!}\u00B0C",
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            ),
+          )),
+        ),
       ),
     );
   }
 
   /// Build a load failed UI with an option to refresh page
-  Widget _buildLoadFailed(HomeCubit cubit) {
+  Widget _buildLoadFailed(HomeCubit cubit, HomeLoadFailedState state) {
     return Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Lottie.asset('lottie/error.json', height: 250),
-          const SizedBox(height: 20),
-          const Text('Something went wrong'),
-          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text(state.errorMessage),
+          ), // Display error message
           SizedBox(
             width: 150,
             child: ElevatedButton(
@@ -205,16 +261,27 @@ class HomePage extends StatelessWidget {
         return SelectionArea(
           child: Scaffold(
             appBar: AppBar(
-                title: const Text(
-              "Weather",
-            )),
+              centerTitle: true,
+              title: const Text("Weather"),
+            ),
             body: Align(
               alignment: Alignment.topCenter,
               // Build body based on state
               child: state.map(
                 loading: (_) => _buildLoading(),
-                loaded: (homeLoadedState) => _buildLoaded(context, homeLoadedState),
-                loadFailed: (_) => _buildLoadFailed(BlocProvider.of<HomeCubit>(context)),
+                loaded: (homeLoadedState) => _buildLoaded(
+                  context,
+                  currentCity: homeLoadedState.currentName.toString(),
+                  currentCondition: homeLoadedState.currentCondition.text.toString(),
+                  currentConditionIcon: homeLoadedState.currentCondition.icon.toString(),
+                  currentCountry: homeLoadedState.currentCountry,
+                  currentTemp: homeLoadedState.currentTemp.toString(),
+                  fiveDayForeCast: homeLoadedState.fiveDayForeCast,
+                ),
+                loadFailed: (homeLoadFailedState) => _buildLoadFailed(
+                  BlocProvider.of<HomeCubit>(context),
+                  homeLoadFailedState,
+                ),
               ),
             ),
           ),

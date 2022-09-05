@@ -136,7 +136,7 @@ class DioClient {
     Map<String, dynamic>? queryParameters,
     dynamic body,
   }) async {
-    final requestTypeString = networkRequestTypeToString(type);
+    final requestTypeString = _networkRequestTypeToString(type);
 
     // Headers
     headers = headers ?? {};
@@ -191,7 +191,7 @@ class DioClient {
   }
 
   /// Used to convert enum to string for printing purposes
-  String networkRequestTypeToString(NetworkRequestType networkRequestType) {
+  String _networkRequestTypeToString(NetworkRequestType networkRequestType) {
     switch (networkRequestType) {
       case NetworkRequestType.delete:
         return 'DELETE';
