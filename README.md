@@ -46,17 +46,15 @@ Note: The first day in the forecast is the current day
 
 ## Acknowledgements
 
- - [dio](https://pub.dev/packages/dio)
- - [freezed_annotation](https://pub.dev/packages/freezed_annotation)
- - [json_annotation](https://pub.dev/packages/json_annotation)
- - [json_serializable](https://pub.dev/packages/json_serializable)
- - [lottie](https://pub.dev/packages/lottie)
- - [flutter_svg](https://pub.dev/packages/flutter_svg)
- - [responsive_grid](https://pub.dev/packages/responsive_grid)
- - [flutter_bloc](https://pub.dev/packages/flutter_bloc)
- - [intl](https://pub.dev/packages/intl)
- - [freezed](https://pub.dev/packages/freezed)
- - [flutter_lints](https://pub.dev/packages/flutter_lints)
- - [build_runner](https://pub.dev/packages/build_runner)
- - [mockito](https://pub.dev/packages/mockito)
-
+ - [freezed_annotation](https://pub.dev/packages/freezed_annotation) - HTTP client, DIO works really well for intercepting requests
+ - [json_annotation](https://pub.dev/packages/json_annotation) - A package that is required to work with json_serializable
+ - [json_serializable](https://pub.dev/packages/json_serializable) - A package that generates code which converts to and from JSON
+ - [lottie](https://pub.dev/packages/lottie) - Used to load lottie files
+ - [flutter_svg](https://pub.dev/packages/flutter_svg) - Used to load in svgs
+ - [responsive_grid](https://pub.dev/packages/responsive_grid) - A package that allows items in a row to snap to a new row when screen gets small
+ - [flutter_bloc](https://pub.dev/packages/flutter_bloc) - Used for Cubit state management, Cubit extends BLoC
+ - [intl](https://pub.dev/packages/intl) - Used to convert epoch to a datetime or vice versa
+ - [freezed](https://pub.dev/packages/freezed) - Used generate code for immutable classes
+ - [flutter_lints](https://pub.dev/packages/flutter_lints) - Reminds developers not to be lazy
+ - [build_runner](https://pub.dev/packages/build_runner) - Used to generate code when working with freezed, json_serializable or mockito
+ - [mockito](https://pub.dev/packages/mockito) - Used to create mocks which allows to easier testing
