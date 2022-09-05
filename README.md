@@ -46,6 +46,7 @@ Note: The first day in the forecast is the current day
 
 ## Acknowledgements
 
+ - [dio](https://pub.dev/packages/dio)
  - [freezed_annotation](https://pub.dev/packages/freezed_annotation)
  - [json_annotation](https://pub.dev/packages/json_annotation)
  - [json_serializable](https://pub.dev/packages/json_serializable)
