@@ -149,7 +149,6 @@ main() {
       'Is the Cubit updating from [HomeLoadFailedState] to [HomeLoadedState]',
       () {
         late HomeCubit homeCubit = HomeCubit(weatherRepository: weatherRepository);
-        int callCount = verify(weatherRepository.getWeather(any)).callCount;
 
         // Call this to emit HomeLoadfialedState
         when(weatherRepository.getWeather(any))
