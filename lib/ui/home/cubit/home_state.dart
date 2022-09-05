@@ -14,6 +14,7 @@ class HomeState with _$HomeState {
     required double currentTemp,
     required List<Forecastday> fiveDayForeCast,
     required Condition currentCondition,
+    @Default(true) bool isAscending,
   }) = HomeLoadedState;
 
   const factory HomeState.loadFailed({

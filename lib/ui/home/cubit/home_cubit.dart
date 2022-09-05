@@ -29,8 +29,10 @@ class HomeCubit extends Cubit<HomeState> {
     if (response is WeatherForecastModel) {
       // Create new list for forecast
       List<Forecastday> forecastList = [];
+
       // Add list of forecast from API
       forecastList.addAll(response.listOfForecastDays);
+
       // Remove the first item from the list as its the current day
       List<Forecastday> firstIndexRemovedForecastList = forecastList..removeAt(0);
 
@@ -44,7 +46,47 @@ class HomeCubit extends Cubit<HomeState> {
             .currentCondition, // What the weather is like currently. eg: Rainy, cloudy, winndy, etc.
       ));
     } else {
+      // Emit failed
       emit(HomeState.loadFailed(errorMessage: response.toString()));
+    }
+  }
+
+  void changeToDescOrAsc() {
+    // Check if the forecast is Ascending
+    // If the forecast is ascending, then we change it to descending
+
+    if ((state as HomeLoadedState).isAscending) {
+      // Get the list from the state
+      List<Forecastday> newList = [];
+      newList.addAll((state as HomeLoadedState).fiveDayForeCast);
+
+      // Sort the list by date in Descending order
+      newList.sort((a, b) => b.dateEpoch!.compareTo(a.dateEpoch!));
+
+      emit(HomeState.loaded(
+        currentCountry: (state as HomeLoadedState).currentCountry,
+        currentName: (state as HomeLoadedState).currentName,
+        currentTemp: (state as HomeLoadedState).currentTemp,
+        fiveDayForeCast: newList, // New list here
+        currentCondition: (state as HomeLoadedState).currentCondition,
+        isAscending: false,
+      ));
+    } else {
+      // Get the list from the state
+      List<Forecastday> newList = [];
+      newList.addAll((state as HomeLoadedState).fiveDayForeCast);
+
+      // Sort the list by date in Descending order
+      newList.sort((a, b) => a.dateEpoch!.compareTo(b.dateEpoch!));
+
+      emit(HomeState.loaded(
+        currentCountry: (state as HomeLoadedState).currentCountry,
+        currentName: (state as HomeLoadedState).currentName,
+        currentTemp: (state as HomeLoadedState).currentTemp,
+        fiveDayForeCast: newList, // New list here
+        currentCondition: (state as HomeLoadedState).currentCondition,
+        isAscending: true,
+      ));
     }
   }
 

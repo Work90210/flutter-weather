@@ -34,6 +34,7 @@ class HomePage extends StatelessWidget {
     required String currentCity,
     required String currentCountry,
     required List<Forecastday> fiveDayForeCast,
+    required bool isAscending,
   }) {
     return SingleChildScrollView(
       child: Padding(
@@ -57,9 +58,29 @@ class HomePage extends StatelessWidget {
             // Title
             Padding(
               padding: const EdgeInsets.all(10),
-              child: Text(
-                '5 Day forecast',
-                style: Theme.of(context).textTheme.headline6,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '5 Day forecast',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  IconButton(
+                    padding: const EdgeInsets.all(0),
+                    onPressed: () {
+                      BlocProvider.of<HomeCubit>(context).changeToDescOrAsc();
+                    },
+                    icon: isAscending
+                        ? const Icon(
+                            Icons.arrow_drop_down_rounded,
+                            size: 35,
+                          )
+                        : const Icon(
+                            Icons.arrow_drop_up_rounded,
+                            size: 35,
+                          ),
+                  )
+                ],
               ),
             ),
             // Build weather forecast for the next 5 days
@@ -223,7 +244,7 @@ class HomePage extends StatelessWidget {
   }
 
   /// Build a load failed UI with an option to refresh page
-  Widget _buildLoadFailed(HomeCubit cubit, HomeLoadFailedState state) {
+  Widget _buildLoadFailed(BuildContext context, String errorMessage) {
     return Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -231,14 +252,14 @@ class HomePage extends StatelessWidget {
         children: [
           Lottie.asset('lottie/error.json', height: 250),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(state.errorMessage),
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Text(errorMessage),
           ), // Display error message
           SizedBox(
             width: 150,
             child: ElevatedButton(
                 onPressed: () {
-                  cubit.searchNewLocationOrReload();
+                  BlocProvider.of<HomeCubit>(context).searchNewLocationOrReload();
                 },
                 child: Row(
                   children: const [
@@ -277,10 +298,11 @@ class HomePage extends StatelessWidget {
                   currentCountry: homeLoadedState.currentCountry,
                   currentTemp: homeLoadedState.currentTemp.toString(),
                   fiveDayForeCast: homeLoadedState.fiveDayForeCast,
+                  isAscending: homeLoadedState.isAscending,
                 ),
                 loadFailed: (homeLoadFailedState) => _buildLoadFailed(
-                  BlocProvider.of<HomeCubit>(context),
-                  homeLoadFailedState,
+                  context,
+                  homeLoadFailedState.errorMessage,
                 ),
               ),
             ),

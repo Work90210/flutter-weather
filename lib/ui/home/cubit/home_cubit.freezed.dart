@@ -24,7 +24,8 @@ mixin _$HomeState {
             String currentName,
             double currentTemp,
             List<Forecastday> fiveDayForeCast,
-            Condition currentCondition)
+            Condition currentCondition,
+            bool isAscending)
         loaded,
     required TResult Function(String errorMessage) loadFailed,
   }) =>
@@ -37,7 +38,8 @@ mixin _$HomeState {
             String currentName,
             double currentTemp,
             List<Forecastday> fiveDayForeCast,
-            Condition currentCondition)?
+            Condition currentCondition,
+            bool isAscending)?
         loaded,
     TResult Function(String errorMessage)? loadFailed,
   }) =>
@@ -50,7 +52,8 @@ mixin _$HomeState {
             String currentName,
             double currentTemp,
             List<Forecastday> fiveDayForeCast,
-            Condition currentCondition)?
+            Condition currentCondition,
+            bool isAscending)?
         loaded,
     TResult Function(String errorMessage)? loadFailed,
     required TResult orElse(),
@@ -142,7 +145,8 @@ class _$HomeLoadingState implements HomeLoadingState {
             String currentName,
             double currentTemp,
             List<Forecastday> fiveDayForeCast,
-            Condition currentCondition)
+            Condition currentCondition,
+            bool isAscending)
         loaded,
     required TResult Function(String errorMessage) loadFailed,
   }) {
@@ -158,7 +162,8 @@ class _$HomeLoadingState implements HomeLoadingState {
             String currentName,
             double currentTemp,
             List<Forecastday> fiveDayForeCast,
-            Condition currentCondition)?
+            Condition currentCondition,
+            bool isAscending)?
         loaded,
     TResult Function(String errorMessage)? loadFailed,
   }) {
@@ -174,7 +179,8 @@ class _$HomeLoadingState implements HomeLoadingState {
             String currentName,
             double currentTemp,
             List<Forecastday> fiveDayForeCast,
-            Condition currentCondition)?
+            Condition currentCondition,
+            bool isAscending)?
         loaded,
     TResult Function(String errorMessage)? loadFailed,
     required TResult orElse(),
@@ -234,7 +240,8 @@ abstract class _$$HomeLoadedStateCopyWith<$Res> {
       String currentName,
       double currentTemp,
       List<Forecastday> fiveDayForeCast,
-      Condition currentCondition});
+      Condition currentCondition,
+      bool isAscending});
 
   $ConditionCopyWith<$Res> get currentCondition;
 }
@@ -257,6 +264,7 @@ class __$$HomeLoadedStateCopyWithImpl<$Res>
     Object? currentTemp = freezed,
     Object? fiveDayForeCast = freezed,
     Object? currentCondition = freezed,
+    Object? isAscending = freezed,
   }) {
     return _then(_$HomeLoadedState(
       currentCountry: currentCountry == freezed
@@ -279,6 +287,10 @@ class __$$HomeLoadedStateCopyWithImpl<$Res>
           ? _value.currentCondition
           : currentCondition // ignore: cast_nullable_to_non_nullable
               as Condition,
+      isAscending: isAscending == freezed
+          ? _value.isAscending
+          : isAscending // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -298,7 +310,8 @@ class _$HomeLoadedState implements HomeLoadedState {
       required this.currentName,
       required this.currentTemp,
       required final List<Forecastday> fiveDayForeCast,
-      required this.currentCondition})
+      required this.currentCondition,
+      this.isAscending = true})
       : _fiveDayForeCast = fiveDayForeCast;
 
   @override
@@ -316,10 +329,13 @@ class _$HomeLoadedState implements HomeLoadedState {
 
   @override
   final Condition currentCondition;
+  @override
+  @JsonKey()
+  final bool isAscending;
 
   @override
   String toString() {
-    return 'HomeState.loaded(currentCountry: $currentCountry, currentName: $currentName, currentTemp: $currentTemp, fiveDayForeCast: $fiveDayForeCast, currentCondition: $currentCondition)';
+    return 'HomeState.loaded(currentCountry: $currentCountry, currentName: $currentName, currentTemp: $currentTemp, fiveDayForeCast: $fiveDayForeCast, currentCondition: $currentCondition, isAscending: $isAscending)';
   }
 
   @override
@@ -336,7 +352,9 @@ class _$HomeLoadedState implements HomeLoadedState {
             const DeepCollectionEquality()
                 .equals(other._fiveDayForeCast, _fiveDayForeCast) &&
             const DeepCollectionEquality()
-                .equals(other.currentCondition, currentCondition));
+                .equals(other.currentCondition, currentCondition) &&
+            const DeepCollectionEquality()
+                .equals(other.isAscending, isAscending));
   }
 
   @override
@@ -346,7 +364,8 @@ class _$HomeLoadedState implements HomeLoadedState {
       const DeepCollectionEquality().hash(currentName),
       const DeepCollectionEquality().hash(currentTemp),
       const DeepCollectionEquality().hash(_fiveDayForeCast),
-      const DeepCollectionEquality().hash(currentCondition));
+      const DeepCollectionEquality().hash(currentCondition),
+      const DeepCollectionEquality().hash(isAscending));
 
   @JsonKey(ignore: true)
   @override
@@ -362,12 +381,13 @@ class _$HomeLoadedState implements HomeLoadedState {
             String currentName,
             double currentTemp,
             List<Forecastday> fiveDayForeCast,
-            Condition currentCondition)
+            Condition currentCondition,
+            bool isAscending)
         loaded,
     required TResult Function(String errorMessage) loadFailed,
   }) {
     return loaded(currentCountry, currentName, currentTemp, fiveDayForeCast,
-        currentCondition);
+        currentCondition, isAscending);
   }
 
   @override
@@ -379,12 +399,13 @@ class _$HomeLoadedState implements HomeLoadedState {
             String currentName,
             double currentTemp,
             List<Forecastday> fiveDayForeCast,
-            Condition currentCondition)?
+            Condition currentCondition,
+            bool isAscending)?
         loaded,
     TResult Function(String errorMessage)? loadFailed,
   }) {
     return loaded?.call(currentCountry, currentName, currentTemp,
-        fiveDayForeCast, currentCondition);
+        fiveDayForeCast, currentCondition, isAscending);
   }
 
   @override
@@ -396,14 +417,15 @@ class _$HomeLoadedState implements HomeLoadedState {
             String currentName,
             double currentTemp,
             List<Forecastday> fiveDayForeCast,
-            Condition currentCondition)?
+            Condition currentCondition,
+            bool isAscending)?
         loaded,
     TResult Function(String errorMessage)? loadFailed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
       return loaded(currentCountry, currentName, currentTemp, fiveDayForeCast,
-          currentCondition);
+          currentCondition, isAscending);
     }
     return orElse();
   }
@@ -449,13 +471,15 @@ abstract class HomeLoadedState implements HomeState {
       required final String currentName,
       required final double currentTemp,
       required final List<Forecastday> fiveDayForeCast,
-      required final Condition currentCondition}) = _$HomeLoadedState;
+      required final Condition currentCondition,
+      final bool isAscending}) = _$HomeLoadedState;
 
   String get currentCountry;
   String get currentName;
   double get currentTemp;
   List<Forecastday> get fiveDayForeCast;
   Condition get currentCondition;
+  bool get isAscending;
   @JsonKey(ignore: true)
   _$$HomeLoadedStateCopyWith<_$HomeLoadedState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -536,7 +560,8 @@ class _$HomeLoadFailedState implements HomeLoadFailedState {
             String currentName,
             double currentTemp,
             List<Forecastday> fiveDayForeCast,
-            Condition currentCondition)
+            Condition currentCondition,
+            bool isAscending)
         loaded,
     required TResult Function(String errorMessage) loadFailed,
   }) {
@@ -552,7 +577,8 @@ class _$HomeLoadFailedState implements HomeLoadFailedState {
             String currentName,
             double currentTemp,
             List<Forecastday> fiveDayForeCast,
-            Condition currentCondition)?
+            Condition currentCondition,
+            bool isAscending)?
         loaded,
     TResult Function(String errorMessage)? loadFailed,
   }) {
@@ -568,7 +594,8 @@ class _$HomeLoadFailedState implements HomeLoadFailedState {
             String currentName,
             double currentTemp,
             List<Forecastday> fiveDayForeCast,
-            Condition currentCondition)?
+            Condition currentCondition,
+            bool isAscending)?
         loaded,
     TResult Function(String errorMessage)? loadFailed,
     required TResult orElse(),
