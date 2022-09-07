@@ -8,8 +8,6 @@ import 'package:flutter_weather/models/weather_forecast_model/weather_forecast_m
 import 'package:flutter_weather/network/dio_provider.dart';
 
 class WeatherRepository {
-  WeatherRepository();
-
   Future getWeather(String location) async {
     try {
       final result = await DioClient.instance.get(
