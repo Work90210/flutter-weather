@@ -46,7 +46,8 @@ Note: The first day in the forecast is the current day
 
 ## Acknowledgements
 
- - [freezed_annotation](https://pub.dev/packages/freezed_annotation) - HTTP client, DIO works really well for intercepting requests
+ - [dio](https://pub.dev/packages/dio) - HTTP client, DIO works really well for intercepting requests
+ - [freezed_annotation](https://pub.dev/packages/freezed_annotation) - A package required to work with freezed
  - [json_annotation](https://pub.dev/packages/json_annotation) - A package that is required to work with json_serializable
  - [json_serializable](https://pub.dev/packages/json_serializable) - A package that generates code which converts to and from JSON
  - [lottie](https://pub.dev/packages/lottie) - Used to load lottie files
