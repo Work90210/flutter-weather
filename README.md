@@ -3,7 +3,7 @@
 
 A weather application built using flutter. 
 
-The application is built using the latest flutter version (v3.3.0)
+The application is built using a older flutter version (v3.3.0)
 
 
 
